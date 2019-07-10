@@ -1,0 +1,19 @@
+#!/bin/execlineb -P
+
+define home /srv/shepherd
+define run /run/shepherd
+# Using stdout instead of stderr
+fdmove -c 2 1
+
+ifthenelse -s { test -e /local/venv_shepherd/bin/celery }
+{ define celery /local/venv_shepherd/bin/celery }
+{ define celery /usr/local/bin/celery }
+
+
+with-contenv
+
+s6-setuidgid shepherd
+s6-env HOME=${home}
+cd ${home}
+
+${celery} -A app.celery worker -E -l INFO
