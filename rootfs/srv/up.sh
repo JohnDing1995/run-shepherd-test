@@ -10,8 +10,9 @@ init-flask-db.sh shepherd apluslms_shepherd
 while ! setuidgid shepherd psql "--command=SELECT version();" >/dev/null 2>&1; do
     sleep 0.2
 done
-
+# Starting secondary services 
+start_services shepherd-broker shepherd-celery-worker
 # Starting main server
 setuidgid shepherd python3 app.py
-# Starting message broker
-#setuidgid shepherd python /apluslms_shepherd/message_broker/broker.py
+
+

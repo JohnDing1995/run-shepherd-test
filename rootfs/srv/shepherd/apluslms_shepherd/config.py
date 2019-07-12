@@ -3,7 +3,6 @@ import string
 from builtins import object, frozenset
 from os.path import dirname
 
-
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -38,17 +37,12 @@ class Config(object):
                       )
     COURSE_REPO_BASEPATH = BASE_DIR + "/../../shepherd_test_clone/"
 
-
-class ProductionConfig(Config):
-    pass
-
 class DevelopmentConfig(Config):
     DEBUG = True
     BUILD_WEBHOOK_TOKEN = "Secret"
     BUILD_WEBHOOK_URL = "http://127.0.0.1:5000/webhooks/state/"
     COURSE_DEPLOYMENT_PATH = Config.BASE_DIR + "/../../shepherd_deploy/"
     REPO_KEYS_PATH = Config.BASE_DIR + "/../../shepherd_repo_keys/"
-
 
 class TestingConfig(Config):
     TESTING = True

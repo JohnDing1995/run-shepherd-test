@@ -12,3 +12,4 @@
 ## S6 Services
 * `shepherd-celery-beat`: run scheduled task, such as repo cleaning and RSA key auto-validation.
 * `shepherd-celery-beat`: run other background task
+* `shepherd-broker`: run message broker.
