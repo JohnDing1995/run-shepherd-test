@@ -1,12 +1,12 @@
 import os
 import string
 from builtins import object, frozenset
-from os.path import dirname
+from os.path import dirname, join
 
 class Config(object):
     DEBUG = False
     TESTING = False
-    BASE_DIR = dirname(__file__)
+    BASE_DIR = "/srv/shepherd/"
     SQLALCHEMY_DATABASE_URI = "postgresql:///apluslms_shepherd"
     LOGIN_REDIRECT_URL = "/auth/success/"
     LOGIN_DISABLED = False
@@ -35,14 +35,14 @@ class Config(object):
     CELERY_IMPORTS = ("apluslms_shepherd.celery_tasks.build",
                       "apluslms_shepherd.celery_tasks.repos"
                       )
-    COURSE_REPO_BASEPATH = BASE_DIR + "/../../shepherd_test_clone/"
+    COURSE_REPO_BASEPATH = join(BASE_DIR, "shepherd_test_clone/")
 
 class DevelopmentConfig(Config):
     DEBUG = True
     BUILD_WEBHOOK_TOKEN = "Secret"
     BUILD_WEBHOOK_URL = "http://127.0.0.1:5000/webhooks/state/"
-    COURSE_DEPLOYMENT_PATH = Config.BASE_DIR + "/../../shepherd_deploy/"
-    REPO_KEYS_PATH = Config.BASE_DIR + "/../../shepherd_repo_keys/"
+    COURSE_DEPLOYMENT_PATH = join(Config.BASE_DIR, "shepherd_deploy/")
+    REPO_KEYS_PATH = join(Config.BASE_DIR, "shepherd_repo_keys/")
 
 class TestingConfig(Config):
     TESTING = True

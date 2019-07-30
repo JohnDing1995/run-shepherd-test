@@ -1,0 +1,19 @@
+Flask
+flask-script
+flask-sqlalchemy
+flask-login
+flask-migrate
+apluslms-roman
+git+https://github.com/apluslms/flask-lti-login.git
+flask-socketio
+aiohttp
+aio_pika
+celery
+asynqp
+wtforms
+sqlalchemy-mptt==0.2.4
+python-slugify==3.0.2
+Flask-Principal==0.4.0
+requests==2.22.0
+cryptography >= 1.4.0
+psycopg2

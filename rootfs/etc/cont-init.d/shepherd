@@ -9,3 +9,10 @@ ensure_dir /run/shepherd
 ensure_dir /local/shepherd
 ensure_dir /local/shepherd/static
 ensure_dir /local/shepherd/media
+
+# Ensure group permissions
+sock=/var/run/docker.sock
+gid=$(stat -c '%g' $sock)
+gname=$(getent group "$gid")
+[ "$gname" ] || groupadd -g "$gid" docker_socket
+usermod -G "$gid" grader

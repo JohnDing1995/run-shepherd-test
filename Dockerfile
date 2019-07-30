@@ -4,10 +4,14 @@ ARG BRANCH=v1.4.4
 COPY rootfs/usr/local/sbin /usr/local/sbin
 
 RUN mkdir /srv/shepherd \
-&& adduser --system --no-create-home --disabled-password --gecos "A+ shepherd server,,," --home /srv/shepherd --ingroup nogroup shepherd \
-&& apt_install python3-dev \
+ # install docker-ce
+ && curl -LSs https://download.docker.com/linux/debian/gpg | apt-key add - >/dev/null 2>&1 \
+ && echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list \
+ && apt_install docker-ce \
 \
-&& :
+&& apt_install openssh-client \
+&& adduser --system --no-create-home --disabled-password --gecos "A+ shepherd server,,," --home /srv/shepherd --ingroup nogroup shepherd
+
 RUN : \
 && chown shepherd.nogroup /srv/shepherd \
 && cd /srv/shepherd \
@@ -22,7 +26,7 @@ RUN : \
 && find /usr/local/lib/python* -type d -name 'tests' -print0 | xargs -0 rm -rf 
 
 COPY rootfs /
-
+ENV GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 WORKDIR /srv/shepherd/
 EXPOSE 5000
 
