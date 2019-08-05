@@ -1,0 +1,6 @@
+version: '1.0'
+backend: docker
+
+docker:
+  directory_map:
+   /srv/shepherd/shepherd_test_clone: /var/lib/docker/volumes/shepherd_clone/_data
