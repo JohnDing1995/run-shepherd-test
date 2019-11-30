@@ -17,7 +17,11 @@
 ## Usage
 ### I. Prepare A+
 1. Set up `A+` main server according to [here](https://apluslms.github.io/guides/quick/). 
-2. Add lti service in [Django admin](http://127.0.0.1:8000/admin/external_services/ltiservice/add/).This link only works after you run `A+` on the localhost Username/Password: `root`. The setting should be as same as this screenshot.
+2. Add lti service in [Django admin](http://127.0.0.1:8000/admin/external_services/ltiservice/add/).
+This link only works after you run `A+` on the localhost 
+3. Username and Password for A+: `root`.
+4. The setting should be as same as this screenshot: Consumer Key: `Bleks2FiObiMpd5C`
+Consumer secret `uf7OtOjcCclxGZBzzRoll87vledSK8cK3koL6BRCSwelICYIc8eyG56qxDJKtV6l`
 
 ![lti](img/lti.png)
 
@@ -30,3 +34,9 @@
 4. Run server using `docker build --no-cache -t shepherd . && docker run -p 5000:5000 -p 5001:5001 -v /var/run/docker.sock:/var/run/docker.sock -v shepherd_clone:/srv/shepherd/shepherd_test_clone/ shepherd:latest
 `. 
 5. Now you can use the system by click `test_flask_lti` on the the `A+`mian page. `LTI` protocal allows `A+` user log into `Shepherd` directly without passwords.
+### III. Create your own course and test the course CI.
+1. Create a group and assign yourself into the group.
+2. Create a new repoistery in the GitLab, push A+ course template (the content of folder `my_new_course`) into the new repo. Copy the ssh address of the repo
+3. Create a new course in the system, prefix should be match with the prefix in your group's setting. The repo adress should be the ssh address of the repoistery you created at step 2.
+4. Go to "Repo" page, copy the auto generated deploy key, set it as the deploy key in your GitLab repo.
+5. Now, when you push any change to your GitLab repo, the `Shepherd` will start clone and build your course, you can check real-time status and log on the build page.
